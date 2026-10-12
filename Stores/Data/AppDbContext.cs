@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Stores.Models;
 
 
 namespace stores.data
@@ -9,6 +10,8 @@ namespace stores.data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+
+        public DbSet<UserModel> users { get; set; }
 
 
     }
