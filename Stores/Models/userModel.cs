@@ -1,14 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 
 namespace Stores.Models
 {
-    public enum Role
-    {
-        CUSTOMER,
-        STORE_OWNER 
-    }
+    
 
     public class UserModel
     {
@@ -25,8 +22,7 @@ namespace Stores.Models
         [Required]
         public string Password { get; set; } = string.Empty;
 
-        public Role Role { get; set; } = Role.CUSTOMER;
-
+        
         public string? RefreshToken { get; set; }
 
         public string? Image { get; set; }
@@ -40,6 +36,10 @@ namespace Stores.Models
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    
+
+        public int RoleId { get; set; }
+        public UserRole Role { get; set; } = null!;
+
+
     }
 }

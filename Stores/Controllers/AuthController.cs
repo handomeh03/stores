@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stores.BusinessLogic.Auth;
+using Stores.DataAccess;
+using Stores.Services.Interfaces;
 
 namespace Stores.Controllers
 {
@@ -8,10 +10,14 @@ namespace Stores.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthService _authService;
+        private readonly ITokenService _tokenService;
+        private readonly UserRepository _userRepository;
 
-        public AuthController(AuthService authService)
+        public AuthController(AuthService authService, ITokenService tokenService, UserRepository userRepository)
         {
             _authService = authService;
+            _tokenService = tokenService;
+            _userRepository = userRepository;
         }
 
         
@@ -25,7 +31,7 @@ namespace Stores.Controllers
                 return BadRequest(new { message = "Email is already in use or registration failed" });
             }
 
-            return Ok(new { message = "Account created successfully", email = result });
+            return Ok(new { message = "Account created successfully" });
         }
 
         
@@ -39,7 +45,15 @@ namespace Stores.Controllers
                 return Unauthorized(new { message = "Invalid email or password" });
             }
 
-            return Ok(new { message = "Login successful", email = result });
+            var roleName = await _userRepository.GetRoleNameByIdAsync(result.RoleId);
+
+            var token = _tokenService.GenerateToken(result.Id, roleName);
+
+            return Ok(new
+            {
+                message = "Login successful",
+                Token = token,
+            });
         }
     }
 

@@ -49,7 +49,18 @@ namespace Stores.DataAccess
             await _context.SaveChangesAsync();
         }
 
-        
+        public async Task<string?> GetRoleNameByIdAsync(int RoleId)
+        {
+            var roleName = await _context.UserRoles
+                .Where(r => r.Id == RoleId)
+                .Select(r => r.RoleName)
+                .FirstOrDefaultAsync();
+
+            return roleName;
+        }
+
+
+
         public async Task DeleteUserAsync(int id)
         {
             var user = await _context.users.FindAsync(id);

@@ -12,7 +12,7 @@ namespace stores.data
         }
 
         public DbSet<UserModel> users { get; set; }
-
+        public DbSet<UserRole> UserRoles {  get; set; }
 
     }
 }

@@ -29,7 +29,7 @@ namespace Stores.BusinessLogic.Auth
                 Name = name,
                 Email = email,
                 Phone = phone,
-                Role = Role.CUSTOMER
+                RoleId = 2
             };
 
             
@@ -55,6 +55,8 @@ namespace Stores.BusinessLogic.Auth
             {
                 return null; 
             }
+
+     
 
             return user; 
         }
