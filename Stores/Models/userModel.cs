@@ -13,13 +13,18 @@ namespace Stores.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string? Name { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
+        [StringLength(50)]
         public string Email { get; set; } = string.Empty;
 
         [Required]
+
         public string Password { get; set; } = string.Empty;
 
         
@@ -28,6 +33,7 @@ namespace Stores.Models
         public string? Image { get; set; }
 
         [Phone]
+        [StringLength(50)]
         public string? Phone { get; set; }
 
         public bool IsActive { get; set; } = true;
@@ -39,6 +45,8 @@ namespace Stores.Models
 
         public int RoleId { get; set; }
         public UserRole Role { get; set; } = null!;
+
+        public ICollection<Order> Users { get; set; } = new List<Order>();
 
 
     }

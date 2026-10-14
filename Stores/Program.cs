@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using stores.data;
 using Stores.BusinessLogic.Auth;
+using Stores.BusinessLogic.Product;
 using Stores.DataAccess;
 using Stores.Services.Interfaces;
 using System.Text;
@@ -47,6 +48,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AuthService>();
+
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<ProductService>();
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddAuthorization();
